@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Bill Alert App",
+    "slug": "bill-alert-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourusername.billalertapp"
+    },
+    "android": {
+      "package": "com.yourusername.billalertapp",
+      "permissions": ["NOTIFICATIONS"]
+    }
+  }
+}
