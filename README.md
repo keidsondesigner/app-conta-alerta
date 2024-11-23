@@ -6,8 +6,6 @@ A ideia de criar o "Já Pagou?" foi a atender a necessidade do meu pai, um senho
 
 ## Resumo das funcionalidades
 Aqui está um resumo das funcionalidades implementadas:
-
-Todas as funcionalidades:
    - Filtros de busca na Home
    - Adicionar nova conta
    - Habilitar notificação em uma conta
