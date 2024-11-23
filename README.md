@@ -4,6 +4,50 @@
 > Como surgiu a ideia?  <br>
 A ideia de criar o "Já Pagou?" foi a atender a necessidade do meu pai, um senhor com mais de 60 anos, que precisava lembrar a data de pagamento de alguma fatura, ele sempre deixava passar um ou dois dias, as vezes mais e então pagava com juros, isso o frustava muito, então perguntei para ele "pai, se você tivesse um aplicativo que te lembra-se do vencimento de uma conta, ajudaria?", "com certezaaa... e eu me livraria do meu caderninho kkk" 
 
+## Resumo das funcionalidades
+Aqui está um resumo das funcionalidades implementadas:
+
+Todas as funcionalidades:
+   - Filtros de busca na Home
+   - Adicionar nova conta
+   - Habilitar notificação em uma conta
+   - Editar conta existente
+   - Excluir conta
+   - Marcar como paga/não paga
+
+home.tsx:
+   - Lista todas as contas cadastradas
+   - Mostra título, valor e data de vencimento de cada conta
+   - Botões para editar e excluir cada conta
+   - Botão para adicionar nova conta
+
+add.tsx:
+   - Formulário para adicionar nova conta
+   - Campos para título, valor, data de vencimento
+   - Seletor de data e hora para a notificação
+   - Salva os dados no AsyncStorage
+   - Agenda uma notificação para a data/hora escolhida
+   
+edit.tsx:
+   - Formulário para editar conta existente
+   - Mesmos campos do Add.tsx
+   - Atualiza os dados no AsyncStorage
+   - Atualiza a notificação agendada
+
+App.tsx:
+   - Configuração da navegação entre telas
+   - Configuração inicial das notificações
+   - Solicita permissão para enviar notificações
+
+
+Para usar o aplicativo:
+   Na tela inicial, você verá a lista de todas as suas contas
+   Clique no botão "Adicionar Conta" para cadastrar uma nova conta
+   Preencha os dados da conta e escolha quando quer receber a notificação
+   Para editar uma conta, clique no botão "Editar" na conta desejada
+   Para excluir uma conta, clique no botão "Excluir"
+   O aplicativo irá notificar você no dia e hora escolhidos para cada conta.
+
 
 ## Get started
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
