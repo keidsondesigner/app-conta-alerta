@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Bill Alert App",
-    "slug": "bill-alert-app",
+    "slug": "app-conta-alerta",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
