@@ -39,12 +39,12 @@ App.tsx:
 
 
 Para usar o aplicativo:
-   Na tela inicial, você verá a lista de todas as suas contas
-   Clique no botão "Adicionar Conta" para cadastrar uma nova conta
-   Preencha os dados da conta e escolha quando quer receber a notificação
-   Para editar uma conta, clique no botão "Editar" na conta desejada
-   Para excluir uma conta, clique no botão "Excluir"
-   O aplicativo irá notificar você no dia e hora escolhidos para cada conta.
+   - Na tela inicial, você verá a lista de todas as suas contas
+   - Clique no botão "Adicionar Conta" para cadastrar uma nova conta
+   - Preencha os dados da conta e escolha quando quer receber a notificação
+   - Para editar uma conta, clique no botão "Editar" na conta desejada
+   - Para excluir uma conta, clique no botão "Excluir"
+   - O aplicativo irá notificar você no dia e hora escolhidos para cada conta.
 
 
 ## Get started
