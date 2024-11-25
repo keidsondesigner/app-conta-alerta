@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Bill Alert App",
-    "slug": "app-conta-alerta",
+    "name": "App Ja Pagou",
+    "slug": "app-ja-pagou",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -10,11 +10,21 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourusername.billalertapp"
+      "bundleIdentifier": "com.keidsonroby.appjapagou"
     },
     "android": {
-      "package": "com.yourusername.billalertapp",
-      "permissions": ["NOTIFICATIONS"]
+      "package": "com.keidsonroby.appjapagou",
+      "permissions": [
+        "NOTIFICATIONS"
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#00875F"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e8cbaac-32c4-42e9-9cf6-d1f5fa3ecd8e"
+      }
     }
   }
 }

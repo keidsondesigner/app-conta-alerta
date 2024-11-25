@@ -1,0 +1,20 @@
+{
+  "cli": {
+    "version": ">= 5.9.1",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug",
+        "withoutCredentials": true
+      },
+      "distribution": "internal",
+      "env": {
+        "EXPO_NO_DOTENV": "1"
+      }
+    },
+    "production": {}
+  }
+}
