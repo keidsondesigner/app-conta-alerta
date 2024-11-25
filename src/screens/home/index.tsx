@@ -5,6 +5,7 @@ import { Bill, FilterStatus } from '@/@types';
 import { MaterialIcons } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatCurrency } from '@/utils/currency';
 import { 
   Alert, 
   View, 
@@ -160,18 +161,18 @@ export function Home() {
         <View style={styles.summary}>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Total:</Text>
-            <Text style={styles.summaryValue}>R$ {totalAmount.toFixed(2)}</Text>
+            <Text style={styles.summaryValue}>{formatCurrency(totalAmount)}</Text>
           </View>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Pago:</Text>
             <Text style={[styles.summaryValue, { color: '#4CAF50' }]}>
-              R$ {paidAmount.toFixed(2)}
+              {formatCurrency(paidAmount)}
             </Text>
           </View>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>A Pagar:</Text>
             <Text style={[styles.summaryValue, { color: '#F44336' }]}>
-              R$ {unpaidAmount.toFixed(2)}
+              {formatCurrency(unpaidAmount)}
             </Text>
           </View>
         </View>
@@ -204,9 +205,7 @@ export function Home() {
             </View>
             
             <View style={styles.billInfo}>
-              <Text style={styles.billAmount}>
-                R$ {item.amount.toFixed(2)}
-              </Text>
+              <Text style={styles.billAmount}>{formatCurrency(item.amount)}</Text>
               <Text style={styles.billDueDate}>
                 Vence em {format(new Date(item.dueDate), "dd 'de' MMMM", { locale: ptBR })}
               </Text>

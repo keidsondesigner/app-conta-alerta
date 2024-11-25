@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatCurrency } from '@/utils/currency';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Bill } from '@/@types';
 import { styles } from './styles';
@@ -52,7 +53,10 @@ export function Edit() {
         const bill = bills.find((b: Bill) => b.id === id);
         if (bill) {
           setName(bill.name);
-          setAmount(bill.amount.toString());
+          setAmount(bill.amount.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }));
           setDueDate(parseISO(bill.dueDate));
           setDescription(bill.description || '');
           setPaid(bill.paid);
@@ -64,6 +68,26 @@ export function Edit() {
       console.error('Erro ao carregar conta:', error);
       Alert.alert('Erro', 'Não foi possível carregar os dados da conta.');
     }
+  };
+
+  const formatInputValue = (text: string) => {
+    // Remove tudo exceto números
+    const numbers = text.replace(/\D/g, '');
+    
+    // Converte para centavos (divide por 100 para ter 2 casas decimais)
+    const amount = parseFloat(numbers) / 100;
+    
+    // Formata o número com vírgula e 2 casas decimais
+    return amount.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
+
+  const handleAmountChange = (text: string) => {
+    // Remove qualquer formatação existente
+    const cleanText = text.replace(/\D/g, '');
+    setAmount(formatInputValue(cleanText));
   };
 
   const handleSave = async () => {
@@ -87,10 +111,13 @@ export function Edit() {
         await NotificationService.cancelNotification(id);
       }
 
+      // Converte o valor formatado para número
+      const numericAmount = parseFloat(amount.replace(/\./g, '').replace(',', '.'));
+
       const updatedBill: Bill = {
         ...bills[billIndex],
         name: name.trim(),
-        amount: parseFloat(amount),
+        amount: numericAmount,
         dueDate: dueDate.toISOString(),
         description: description.trim(),
         paid,
@@ -102,7 +129,7 @@ export function Edit() {
         await NotificationService.scheduleNotification({
           id,
           title: 'Lembrete de Conta',
-          body: `A conta ${name} vence hoje! Valor: R$ ${parseFloat(amount).toFixed(2)}`,
+          body: `A conta ${name} vence hoje! Valor: R$ ${formatCurrency(numericAmount)}`,
           date: dueDate,
           time: notificationTime,
           // repeat: 'day',
@@ -152,13 +179,13 @@ export function Edit() {
           </View>
 
           <View style={styles.field}>
-            <Text style={styles.label}>Valor</Text>
+            <Text style={styles.label}>Valor (R$)</Text>
             <TextInput
               style={styles.input}
               value={amount}
-              onChangeText={setAmount}
+              onChangeText={handleAmountChange}
               placeholder="0,00"
-              keyboardType="decimal-pad"
+              keyboardType="numeric"
             />
           </View>
 

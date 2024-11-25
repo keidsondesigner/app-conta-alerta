@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Bill } from '@/@types';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatCurrency } from '@/utils/currency';
 import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from './styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -54,7 +55,7 @@ export function Details() {
         <View style={styles.row}>
           <MaterialIcons name="attach-money" size={24} color="#4CAF50" />
           <Text style={styles.label}>Valor:</Text>
-          <Text style={styles.value}>R$ {bill.amount.toFixed(2)}</Text>
+          <Text style={styles.value}>{formatCurrency(bill.amount)}</Text>
         </View>
 
         <View style={styles.row}>

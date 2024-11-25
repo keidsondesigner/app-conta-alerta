@@ -7,6 +7,7 @@ import { Bill } from '@/@types';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { NotificationService } from '@/services/notifications';
+import { formatCurrency } from '@/utils/currency';
 import { styles } from './styles';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -30,6 +31,26 @@ export function Add() {
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [enableNotification, setEnableNotification] = useState(true);
 
+  const formatInputValue = (text: string) => {
+    // Remove tudo exceto números
+    const numbers = text.replace(/\D/g, '');
+    
+    // Converte para centavos (divide por 100 para ter 2 casas decimais)
+    const amount = parseFloat(numbers) / 100;
+    
+    // Formata o número com vírgula e 2 casas decimais
+    return amount.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
+
+  const handleAmountChange = (text: string) => {
+    // Remove qualquer formatação existente
+    const cleanText = text.replace(/\D/g, '');
+    setAmount(formatInputValue(cleanText));
+  };
+
   const handleSave = async () => {
     if (!name.trim() || !amount.trim()) {
       alert('Por favor, preencha o nome e o valor da conta');
@@ -43,10 +64,13 @@ export function Add() {
       const billDueDate = new Date(dueDate);
       billDueDate.setHours(0, 0, 0, 0);
 
+      // Converte o valor formatado para número
+      const numericAmount = parseFloat(amount.replace(/\./g, '').replace(',', '.'));
+
       const newBill: Bill = {
         id: Date.now().toString(),
         name: name.trim(),
-        amount: parseFloat(amount.replace(',', '.')),
+        amount: numericAmount,
         dueDate: billDueDate.toISOString(),
         paid,
         description: description.trim(),
@@ -61,7 +85,7 @@ export function Add() {
         await NotificationService.scheduleNotification({
           id: newBill.id,
           title: 'Lembrete de Conta',
-          body: `A conta ${newBill.name} vence hoje! Valor: R$ ${parseFloat(newBill.amount).toFixed(2)}`,
+          body: `A conta ${newBill.name} vence hoje! Valor: ${formatCurrency(newBill.amount)}`,
           date: newBill.dueDate,
           time: newBill.notificationTime,
         });
@@ -92,9 +116,9 @@ export function Add() {
           <TextInput
             style={styles.input}
             value={amount}
-            onChangeText={setAmount}
+            onChangeText={handleAmountChange}
             placeholder="0,00"
-            keyboardType="decimal-pad"
+            keyboardType="numeric"
           />
         </View>
 
